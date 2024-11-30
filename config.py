@@ -16,7 +16,7 @@ API_HASH = os.environ.get("API_HASH", "2ac7223d720bdeec757cbc88ced57224")
 PIC = os.environ.get("PIC", "https://telegra.ph/file/c4492791ab1025e3f2602.jpg")
 
 #Your db channel Id
-CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1002480489590"))
+CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1002415535852"))
 
 #OWNER ID
 OWNER_ID = int(os.environ.get("OWNER_ID", "6762558871"))
