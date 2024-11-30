@@ -1,0 +1,24 @@
+# --- For-Bot-Working --------- #
+pyromod
+# --- For-Database ------------ #
+pymongo
+# --- For-Web-Response ------- #
+
+IMDbPY==2022.7.9
+Pillow
+shortzy
+pyrogram
+tgcrypto
+aiohttp
+python-dotenv
+motor
+aiofiles
+dnspython
+apscheduler
+requests
+psutil
+colorama
+jinja2
+Flask
+gunicorn
+telethon
