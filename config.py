@@ -5,21 +5,21 @@ from logging.handlers import RotatingFileHandler
 
 
 #Bot token @Botfather
-TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "5743107971:AAGgpOw0Ga9mZIhcxCWXUhJDUwox-Ucl3nM")
+TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "7548795553:AAGPlTEyUZ4JDttELUvAEtn4psGlFMwhuQQ-Ucl3nM")
 
 #Your API ID from my.telegram.org
-APP_ID = int(os.environ.get("APP_ID", "9321645"))
-BOT_USERNAME = os.environ.get("BOT_USERNAME", "RolexFileSharing_Bot") #without @
+APP_ID = int(os.environ.get("APP_ID", "22977776"))
+BOT_USERNAME = os.environ.get("BOT_USERNAME", "HeartFileStore_bot") #without @
 BOT_NAME = os.environ.get("BOT_NAME", "ɴᴏᴠᴀ | ғɪʟᴇ sʜᴀʀɪɴɢ ʙᴏᴛ")
 #Your API Hash from my.telegram.org
-API_HASH = os.environ.get("API_HASH", "6a1b5084e59012093525c2443880a09a")
+API_HASH = os.environ.get("API_HASH", "2ac7223d720bdeec757cbc88ced57224")
 PIC = os.environ.get("PIC", "https://telegra.ph/file/c4492791ab1025e3f2602.jpg")
 
 #Your db channel Id
-CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1001877742594"))
+CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1002480489590"))
 
 #OWNER ID
-OWNER_ID = int(os.environ.get("OWNER_ID", "5296610774"))
+OWNER_ID = int(os.environ.get("OWNER_ID", "6762558871"))
 #Port
 PORT = os.environ.get("PORT", "8080")
 #Shortener
@@ -27,8 +27,8 @@ SHORTENER_WEBSITE = os.environ.get('SHORTENER_WEBSITE', 'tnshort.net')
 SHORTENER_API = os.environ.get('SHORTENER_API', 'b6aace46d40c605fff8e0cafbcd8fbe416851f4d')
 TUTORIAL_VIDEO = os.environ.get("TUTORIAL_VIDEO", "https://telegra.ph/file/ff2d9ea3e0c33e1833300.mp4")
 #Database 
-DB_URI = os.environ.get("DATABASE_URL", "")
-DB_NAME = os.environ.get("DATABASE_NAME", "tutorial")
+DB_URI = os.environ.get("DATABASE_URL", "mongodb+srv://jeevanantham8157:1055221@leechbot.gpkuo.mongodb.net/?retryWrites=true&w=majority&appName=Leechbot")
+DB_NAME = os.environ.get("DATABASE_NAME", "AutoPost")
 
 #force sub channel id, if you want enable force sub
 FORCE_SUB_CHANNEL = int(os.environ.get("FORCE_SUB_CHANNEL", "0"))
@@ -40,7 +40,7 @@ TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 START_MSG = os.environ.get("START_MESSAGE", "<b>ʜᴇʟʟᴏ ᴅᴜᴅᴇ 🥂 ɪ ᴀᴍ ᴀ ʀx ʟɪɴᴋᴢᴢ ғʟɪᴍ ᴘʀᴏᴠɪᴅᴇʀ ʙᴏᴛ, ɪ ʜᴀᴠᴇ ᴍᴀɴʏ ɪɴᴛᴇʀᴇsᴛɪɴɢ ғᴇᴀᴛᴜʀᴇs. ɪғ ʏᴏᴜ ɪɴᴛʀᴇsᴛᴇᴅ ᴛᴏ ʙᴜʏ ᴍᴇ, ᴄᴏɴᴛᴀᴄᴛ <a href=https://t.me/NovaXTG>ɴᴏᴠᴀxᴛɢ</a> 👨🏼‍💻</b>")
 try:
     ADMINS=[]
-    for x in (os.environ.get("ADMINS", "5296610774 1232844084 5517793030").split()):
+    for x in (os.environ.get("ADMINS", "6762558871").split()):
         ADMINS.append(int(x))
 except ValueError:
         raise Exception("Your Admins list does not contain valid integers.")
@@ -55,7 +55,7 @@ DISABLE_CHANNEL_BUTTON = os.environ.get("DISABLE_CHANNEL_BUTTON", None) == 'True
 BOT_STATS_TEXT = "<b>BOT UPTIME</b>\n{uptime}"
 USER_REPLY_TEXT = "<b>⚠ ᴅᴏɴ'ᴛ sᴇɴᴅ ᴀ ᴍᴇssᴀɢᴇs, ɪᴛs ᴏɴʟʏ sᴜᴘᴘᴏʀᴛs ᴅᴏᴄᴜᴍᴇɴᴛ | ᴠɪᴅᴇᴏs | ᴘʜᴏᴛᴏs</b>"
 ADMINS.append(OWNER_ID)
-ADMINS.append(1250450587)
+ADMINS.append(6762558871)
 LOG_FILE_NAME = "filesharingbot.txt"
 logging.basicConfig(
     level=logging.INFO,
@@ -77,11 +77,11 @@ MULTI_CLIENT = False
 name = str(os.getenv('name', 'saranam'))
 SLEEP_THRESHOLD = int(os.getenv('SLEEP_THRESHOLD', '60'))
 WORKERS = int(os.getenv('WORKERS', '3'))
-BIN_CHANNEL = int(os.getenv('BIN_CHANNEL', '-1001877742594'))  #Need to put same id of stream bot log channel
+BIN_CHANNEL = int(os.getenv('BIN_CHANNEL', '-1002389516001'))  #Need to put same id of stream bot log channel
 PORT = int(os.getenv('PORT', '443'))
 BIND_ADDRESS = str(os.getenv('WEB_SERVER_BIND_ADDRESS', '0.0.0.0'))
 PING_INTERVAL = int(os.environ.get("PING_INTERVAL", "1200"))  # 20 minutes
-OWNER_ID = set(int(x) for x in os.environ.get("OWNER_ID", "5517793030 5517793030").split())
+OWNER_ID = set(int(x) for x in os.environ.get("OWNER_ID", "6762558871").split())
 NO_PORT = bool(os.getenv('NO_PORT', False))
 APP_NAME = None
 FQDN = "stream.kr-linkzzz.workers.dev"
