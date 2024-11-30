@@ -1,5 +1,4 @@
-#(©)CodeXBotz
-
+#(©)NovaXTG
 
 
 
@@ -11,15 +10,16 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
 
 from bot import Bot
-from config import ADMINS, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT
+from config import *
 from helper_func import subscribed, encode, decode, get_messages
-from database.database import add_user, del_user, full_userbase, present_user
+from database.database import *
 
 
 
 
-@Bot.on_message(filters.command('start') & filters.private & subscribed)
-async def start_command(client: Client, message: Message):
+
+@Bot.on_message(filters.command('start') & filters.private)
+async def start_command(client: Client, message):
     id = message.from_user.id
     if not await present_user(id):
         try:
@@ -28,6 +28,73 @@ async def start_command(client: Client, message: Message):
             pass
     text = message.text
     if len(text)>7:
+        if client.link_one is not None and message.from_user.id not in ADMINS and not await is_requested_one(message):
+            btn = [[
+                InlineKeyboardButton(
+                    "⇔ ʀᴇᴏ̨ᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ 1 ⇔", url=client.link_one)
+            ]]
+            try:
+                if client.link_two is not None and message.from_user.id not in ADMINS and not await is_requested_two(message):
+                    btn.append(
+                          [
+                        InlineKeyboardButton(
+                            "⇔ ʀᴇᴏ̨ᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ 2 ⇔", url=client.link_two)
+                          ]
+                    )
+            except Exception as e:
+                print(e)
+            try:
+                btn.append(
+                      [
+                        InlineKeyboardButton(
+                             text = 'Try Again',
+                             url = f"https://t.me/{client.username}?start={message.command[1]}"
+                        )
+                    ]
+                    )
+            except (IndexError, ValueError):
+                pass
+            await client.send_message(
+                chat_id=message.from_user.id,
+                text="**‼ ᴘʟᴇᴀsᴇ ɢɪᴠᴇ ʀᴇᴏ̨ᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ ᴏɴ ʙᴇʟᴏᴡ ᴄʜᴀɴɴᴇʟ ᴀɴᴅ ᴄʟɪᴄᴋ ᴛʀʏ ᴀɢᴀɪɴ ᴛᴏ ɢᴇᴛ ʏᴏᴜʀ ғɪʟᴇs ‼**",
+                reply_markup=InlineKeyboardMarkup(inline_keyboard=btn),
+                parse_mode=ParseMode.MARKDOWN
+            )
+            return
+        if client.link_two is not None and message.from_user.id not in ADMINS and not await is_requested_two(message):
+            btn = [[
+                InlineKeyboardButton(
+                    "⇔ ʀᴇᴏ̨ᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ ⇔", url=client.link_two)
+            ]]
+            try:
+                if client.link_one is not None and message.from_user.id not in ADMINS and not await is_requested_one(message):
+                    btn.append(
+                          [
+                        InlineKeyboardButton(
+                            "⇔ ʀᴇᴏ̨ᴜᴇsᴛ ᴛᴏ ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ ⇔", url=client.link_one)
+                          ]
+                    )
+            except Exception as e:
+                print(e)
+            try:
+                btn.append(
+                      [
+                        InlineKeyboardButton(
+                             text = 'Try Again',
+                             url = f"https://t.me/{client.username}?start={message.command[1]}"
+                        )
+                    ]
+                    )
+            except (IndexError, ValueError):
+                pass
+            await client.send_message(
+                chat_id=message.from_user.id,
+                text="**Please request Join the Following Channels to use this Bot!**",
+                reply_markup=InlineKeyboardMarkup(inline_keyboard=btn),
+                parse_mode=ParseMode.MARKDOWN
+            )
+            return
+            
         try:
             base64_string = text.split(" ", 1)[1]
         except:
@@ -85,29 +152,21 @@ async def start_command(client: Client, message: Message):
                 pass
         return
     else:
-        reply_markup = InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton("😊 About Me", callback_data = "about"),
-                    InlineKeyboardButton("🔒 Close", callback_data = "close")
-                ]
-            ]
-        )
-        await message.reply_text(
-            text = START_MSG.format(
-                first = message.from_user.first_name,
-                last = message.from_user.last_name,
-                username = None if not message.from_user.username else '@' + message.from_user.username,
-                mention = message.from_user.mention,
-                id = message.from_user.id
-            ),
-            reply_markup = reply_markup,
-            disable_web_page_preview = True,
-            quote = True
+        await client.send_photo(
+            chat_id=message.chat.id,
+            photo=PIC,
+            caption=START_MSG,
+            reply_markup=InlineKeyboardMarkup(
+                [[
+                    InlineKeyboardButton('👨‍💻 ᴅᴇᴠᴇʟᴏᴘᴇʀ​', callback_data='owner_info'),
+                    InlineKeyboardButton('🌿 sᴜᴘᴘᴏʀᴛ', callback_data='support')
+                ], [
+                    InlineKeyboardButton('🎭 ʜᴇʟᴘ 🎭', callback_data='help'),
+                    InlineKeyboardButton('♻️ ᴀʙᴏᴜᴛ ♻️', callback_data='about')
+                ]]
+            )
         )
         return
-
-    
 #=====================================================================================##
 
 WAIT_MSG = """"<b>Processing ...</b>"""
@@ -116,41 +175,6 @@ REPLY_ERROR = """<code>Use this command as a replay to any telegram message with
 
 #=====================================================================================##
 
-    
-    
-@Bot.on_message(filters.command('start') & filters.private)
-async def not_joined(client: Client, message: Message):
-    buttons = [
-        [
-            InlineKeyboardButton(
-                "Join Channel",
-                url = client.invitelink)
-        ]
-    ]
-    try:
-        buttons.append(
-            [
-                InlineKeyboardButton(
-                    text = 'Try Again',
-                    url = f"https://t.me/{client.username}?start={message.command[1]}"
-                )
-            ]
-        )
-    except IndexError:
-        pass
-
-    await message.reply(
-        text = FORCE_MSG.format(
-                first = message.from_user.first_name,
-                last = message.from_user.last_name,
-                username = None if not message.from_user.username else '@' + message.from_user.username,
-                mention = message.from_user.mention,
-                id = message.from_user.id
-            ),
-        reply_markup = InlineKeyboardMarkup(buttons),
-        quote = True,
-        disable_web_page_preview = True
-    )
 
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
 async def get_users(client: Bot, message: Message):
@@ -203,3 +227,35 @@ Unsuccessful: <code>{unsuccessful}</code></b>"""
         msg = await message.reply(REPLY_ERROR)
         await asyncio.sleep(8)
         await msg.delete()
+
+        
+        
+#---------------------------------------------
+def get_size(size):
+    """Get size in readable format"""
+
+    units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"]
+    size = float(size)
+    i = 0
+    while size >= 1024.0 and i < len(units):
+        i += 1
+        size /= 1024.0
+    return "%.2f %s" % (size, units[i])
+
+def split_list(l, n):
+    for i in range(0, len(l), n):
+        yield l[i:i + n]  
+
+
+@Bot.on_message(filters.command('purge_one') & filters.private & filters.user(ADMINS))
+async def purge_req_one(bot, message):
+    r = await message.reply("`processing...`")
+    await delete_all_one()
+    await r.edit("**Req db Cleared**" )
+
+
+@Bot.on_message(filters.command('purge_two') & filters.private & filters.user(ADMINS))
+async def purge_req_two(bot, message):
+    r = await message.reply("`processing...`")
+    await delete_all_two()
+    await r.edit("**Req db Cleared**" )
