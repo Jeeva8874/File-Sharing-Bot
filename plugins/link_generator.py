@@ -1,10 +1,19 @@
-#(©)Codexbotz
+#(©)NovaXTG
 
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from bot import Bot
-from config import ADMINS
+from database.database import *
+import asyncio
+import aiohttp
+from config import *
+import os
+from shortzy import Shortzy
 from helper_func import encode, get_message_id
+
+CMD = ["/", "."]
+
+
 
 @Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('batch'))
 async def batch(client: Client, message: Message):
@@ -35,11 +44,21 @@ async def batch(client: Client, message: Message):
 
     string = f"get-{f_msg_id * abs(client.db_channel.id)}-{s_msg_id * abs(client.db_channel.id)}"
     base64_string = await encode(string)
-    link = f"https://t.me/{client.username}?start={base64_string}"
-    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🔁 Share URL", url=f'https://telegram.me/share/url?url={link}')]])
-    await second_message.reply_text(f"<b>Here is your link</b>\n\n{link}", quote=True, reply_markup=reply_markup)
+    link = f"https://telegram.me/{client.username}?start={base64_string}"
+    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("💸 Yᴏᴜ ᴄᴀɴ sʜᴀʀᴇ ᴛʜɪs ᴛᴏ ᴀɴʏ ᴄʜᴀᴛs 💸", url=f'https://telegram.me/share/url?url={link}')]])
+    await second_message.reply_text(f"<b>🦋 ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ : </b><i><b>{link}</b></i>\n\n<i>© @RolexMoviesOXO</i>", quote=True, reply_markup=reply_markup)
 
 
+
+async def get_shortlink(link):
+    url = 'https://tnshort.net/api'
+    params = {'api': SHORTENER_API, 'url': link}
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
+            data = await response.json()
+            return data["shortenedUrl"]
+    
 @Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('genlink'))
 async def link_generator(client: Client, message: Message):
     while True:
@@ -55,6 +74,122 @@ async def link_generator(client: Client, message: Message):
             continue
 
     base64_string = await encode(f"get-{msg_id * abs(client.db_channel.id)}")
-    link = f"https://t.me/{client.username}?start={base64_string}"
-    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🔁 Share URL", url=f'https://telegram.me/share/url?url={link}')]])
-    await channel_message.reply_text(f"<b>Here is your link</b>\n\n{link}", quote=True, reply_markup=reply_markup)
+    link = f"https://telegram.me/{client.username}?start={base64_string}"
+    await channel_message.reply_text(f"<b>ʏᴏᴜʀ ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ❗️</b>\n\n<b>💎 ғɪʟᴇ ɴᴀᴍᴇ : </b> \n\n<b>💫 ғɪʟᴇ sɪᴢᴇ : </b>\n\n<b>🦋 ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ : </b><i><b>{link}</b></i>\n\n<i>© @Monaserials</i>", quote=True, reply_markup=reply_markup)
+
+@Bot.on_message(filters.private & filters.user(ADMINS) & filters.command('combine'))
+async def combine(client: Client, message: Message):
+    while True:
+        try:
+            first_message = await client.ask(text = "Forward the First one", chat_id = message.from_user.id, filters=(filters.forwarded | (filters.text & ~filters.forwarded)), timeout=60)
+        except:
+            return
+        media1 = first_message.document or first_message.video
+        filename = media1.file_name if media1.file_name else ""
+        filename_without_underscores = filename.replace("_", " ")
+        filename_words = filename_without_underscores.split()[:5]
+        shortened_filename = ' '.join(filename_words)
+        filesize1 = humanbytes(media1.file_size) if media1.file_size else ""
+        f1_msg_id = await get_message_id(client, first_message)
+        if f1_msg_id:
+            break
+        else:
+            await first_message.reply("❌ Error\n\nthis Forwarded Post is not from my DB Channel or this Link is taken from DB Channel", quote = True)
+            continue
+
+    while True:
+        try:
+            second_message = await client.ask(text = "Forward the second one", chat_id = message.from_user.id, filters=(filters.forwarded | (filters.text & ~filters.forwarded)), timeout=60)
+        except:
+            return
+        media2 = second_message.document or second_message.video
+        filesize2 = humanbytes(media2.file_size) if media2.file_size else ""
+        f2_msg_id = await get_message_id(client, second_message)
+        if f2_msg_id:
+            break
+        else:
+            await second_message.reply("❌ Error\n\nthis Forwarded Post is not from my DB Channel or this Link is taken from DB Channel", quote = True)
+            continue
+
+    while True:
+        try:
+            third_message = await client.ask(text = "Forward the 3rd", chat_id = message.from_user.id, filters=(filters.forwarded | (filters.text & ~filters.forwarded)), timeout=60)
+        except:
+            return
+        media3 = third_message.document or third_message.video
+        filesize3 = humanbytes(media3.file_size) if media3.file_size else ""
+        f3_msg_id = await get_message_id(client, third_message)
+        if f3_msg_id:
+            break
+        else:
+            await third_message.reply("❌ Error\n\nthis Forwarded Post is not from my DB Channel or this Link is taken from DB Channel", quote = True)
+            continue
+
+    while True:
+        try:
+            fourth_message = await client.ask(text = "Forward the 4th", chat_id = message.from_user.id, filters=(filters.forwarded | (filters.text & ~filters.forwarded)), timeout=60)
+        except:
+            return
+        media4 = fourth_message.document or fourth_message.video
+        filesize4 = humanbytes(media4.file_size) if media4.file_size else ""
+        f4_msg_id = await get_message_id(client, fourth_message)
+        if f4_msg_id:
+            break
+        else:
+            await fourth_message.reply("❌ Error\n\nthis Forwarded Post is not from my DB Channel or this Link is taken from DB Channel", quote = True)
+            continue
+
+    while True:
+        try:
+            fifth_message = await client.ask(text = "Forward the 5th", chat_id = message.from_user.id, filters=(filters.forwarded | (filters.text & ~filters.forwarded)), timeout=60)
+        except:
+            return
+        media5 = fifth_message.document or fifth_message.video
+        filesize5 = humanbytes(media5.file_size) if media5.file_size else ""
+        f5_msg_id = await get_message_id(client, fifth_message)
+        if f5_msg_id:
+            break
+        else:
+            await fifth_message.reply("❌ Error\n\nthis Forwarded Post is not from my DB Channel or this Link is taken from DB Channel", quote = True)
+            continue
+
+
+    string1 = f"get-{f1_msg_id * abs(client.db_channel.id)}"
+    string2 = f"get-{f2_msg_id * abs(client.db_channel.id)}"
+    string3 = f"get-{f3_msg_id * abs(client.db_channel.id)}"
+    string4 = f"get-{f4_msg_id * abs(client.db_channel.id)}"
+    string5 = f"get-{f5_msg_id * abs(client.db_channel.id)}"
+    base64_string = await encode(string1)
+    base65_string = await encode(string2)
+    base66_string = await encode(string3)
+    base67_string = await encode(string4)
+    base68_string = await encode(string5)
+    link1 = f"https://telegram.me/{client.username}?start={base64_string}"
+    link2 = f"https://telegram.me/{client.username}?start={base65_string}"
+    link3 = f"https://telegram.me/{client.username}?start={base66_string}"
+    link4 = f"https://telegram.me/{client.username}?start={base67_string}"
+    link5 = f"https://telegram.me/{client.username}?start={base68_string}"
+    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("💸 Yᴏᴜ ᴄᴀɴ sʜᴀʀᴇ ᴛʜɪs ᴛᴏ ᴀɴʏ ᴄʜᴀᴛs 💸", url=f'https://telegram.me/share/url?url={link1}')]])
+    await second_message.reply_text(f"<b>{shortened_filename} Tamil\n\n<a href=https://t.me/tnlinkdown/9>( How to get Telegram Direct Files ) </a>\n\n🔻 Direct Telegram Files 🔻\n\n{filesize1} : {link1}\n\n{filesize2} : {link2}\n\n{filesize3} : {link3}\n\n{filesize4} : {link4}\n\n{filesize5} : {link5}\n\n©@RolexMoviesOXO 🍃</b>", quote=True, reply_markup=None)
+
+def humanbytes(size):
+    if not size:
+        return ""
+    power = 2**10
+    n = 0
+    Dic_powerN = {0: ' ', 1: 'K', 2: 'M', 3: 'G', 4: 'T'}
+    while size > power:
+        size /= power
+        n += 1
+    return str(round(size, 2)) + " " + Dic_powerN[n] + 'B'
+
+@Bot.on_message(filters.command("tutorial", CMD))
+async def tutorial(_, message):
+    video=(TUTORIAL_VIDEO)
+
+    keyboard = InlineKeyboardMarkup(
+        [
+            [InlineKeyboardButton("⊝ Close ⊝", callback_data='close')]
+        ]
+    )
+    await message.reply_video(video=TUTORIAL_VIDEO, reply_markup=keyboard)  
