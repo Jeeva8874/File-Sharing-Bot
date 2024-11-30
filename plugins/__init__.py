@@ -1,6 +1,4 @@
-#(©)Codexbotz
-#@iryme
-
+#(©)NovaXTG
 
 
 
