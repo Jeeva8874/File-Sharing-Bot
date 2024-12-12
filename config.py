@@ -5,12 +5,12 @@ from logging.handlers import RotatingFileHandler
 
 
 #Bot token @Botfather
-TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "7548795553:AAGPlTEyUZ4JDttELUvAEtn4psGlFMwhuQQ")
+TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "7150457796:AAExPARfX4GPaufHQHkSyZo9vkbBc9z2yuY")
 
 #Your API ID from my.telegram.org
 APP_ID = int(os.environ.get("APP_ID", "22977776"))
 BOT_USERNAME = os.environ.get("BOT_USERNAME", "HeartFileStore_bot") #without @
-BOT_NAME = os.environ.get("BOT_NAME", "ɴᴏᴠᴀ | ғɪʟᴇ sʜᴀʀɪɴɢ ʙᴏᴛ")
+BOT_NAME = os.environ.get("BOT_NAME", "ʜᴇᴀʀᴛ | ғɪʟᴇ sʜᴀʀɪɴɢ ʙᴏᴛ")
 #Your API Hash from my.telegram.org
 API_HASH = os.environ.get("API_HASH", "2ac7223d720bdeec757cbc88ced57224")
 PIC = os.environ.get("PIC", "https://telegra.ph/file/c4492791ab1025e3f2602.jpg")
@@ -23,8 +23,8 @@ OWNER_ID = int(os.environ.get("OWNER_ID", "6762558871"))
 #Port
 PORT = os.environ.get("PORT", "8080")
 #Shortener
-SHORTENER_WEBSITE = os.environ.get('SHORTENER_WEBSITE', 'tnshort.net')
-SHORTENER_API = os.environ.get('SHORTENER_API', 'b6aace46d40c605fff8e0cafbcd8fbe416851f4d')
+SHORTENER_WEBSITE = os.environ.get('SHORTENER_WEBSITE', '')
+SHORTENER_API = os.environ.get('SHORTENER_API', '')
 TUTORIAL_VIDEO = os.environ.get("TUTORIAL_VIDEO", "https://telegra.ph/file/ff2d9ea3e0c33e1833300.mp4")
 #Database 
 DB_URI = os.environ.get("DATABASE_URL", "mongodb+srv://jeevanantham8157:1055221@leechbot.gpkuo.mongodb.net/?retryWrites=true&w=majority&appName=Leechbot")
@@ -37,7 +37,7 @@ CHANNEL_TWO = int(os.environ.get("CHANNEL_TWO", "0"))
 
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 #start message
-START_MSG = os.environ.get("START_MESSAGE", "<b>ʜᴇʟʟᴏ ᴅᴜᴅᴇ 🥂 ɪ ᴀᴍ ᴀ ʀx ʟɪɴᴋᴢᴢ ғʟɪᴍ ᴘʀᴏᴠɪᴅᴇʀ ʙᴏᴛ, ɪ ʜᴀᴠᴇ ᴍᴀɴʏ ɪɴᴛᴇʀᴇsᴛɪɴɢ ғᴇᴀᴛᴜʀᴇs. ɪғ ʏᴏᴜ ɪɴᴛʀᴇsᴛᴇᴅ ᴛᴏ ʙᴜʏ ᴍᴇ, ᴄᴏɴᴛᴀᴄᴛ <a href=https://t.me/NovaXTG>ɴᴏᴠᴀxᴛɢ</a> 👨🏼‍💻</b>")
+START_MSG = os.environ.get("START_MESSAGE", "<b>ʜᴇʟʟᴏ ᴅᴜᴅᴇ 🥂 ɪ ᴀᴍ ᴀ ʜᴇᴀʀᴛ ғʟɪᴍ ᴘʀᴏᴠɪᴅᴇʀ ʙᴏᴛ, ɪ ʜᴀᴠᴇ ᴍᴀɴʏ ɪɴᴛᴇʀᴇsᴛɪɴɢ ғᴇᴀᴛᴜʀᴇs. ɪғ ʏᴏᴜ ɪɴᴛʀᴇsᴛᴇᴅ ᴛᴏ ʙᴜʏ ᴍᴇ, ᴄᴏɴᴛᴀᴄᴛ <a href=https://t.me/NovaXTG>ɴᴏᴠᴀxᴛɢ</a> 👨🏼‍💻</b>")
 try:
     ADMINS=[]
     for x in (os.environ.get("ADMINS", "6762558871").split()):
@@ -45,7 +45,7 @@ try:
 except ValueError:
         raise Exception("Your Admins list does not contain valid integers.")
 #Force sub message 
-FORCE_MSG = os.environ.get("FORCE_SUB_MESSAGE", "<b>ʜᴇʟʟᴏ ᴅᴜᴅᴇ 🥂 ɪ ᴀᴍ ᴀ ʀx ʟɪɴᴋᴢᴢ ғʟɪᴍ ᴘʀᴏᴠɪᴅᴇʀ ʙᴏᴛ, ɪ ʜᴀᴠᴇ ᴍᴀɴʏ ɪɴᴛᴇʀᴇsᴛɪɴɢ ғᴇᴀᴛᴜʀᴇs. ɪғ ʏᴏᴜ ɪɴᴛʀᴇsᴛᴇᴅ ᴛᴏ ʙᴜʏ ᴍᴇ, ᴄᴏɴᴛᴀᴄᴛ <a href=https://t.me/NovaXTG>ɴᴏᴠᴀxᴛɢ</a> 👨🏼‍💻</b>")
+FORCE_MSG = os.environ.get("FORCE_SUB_MESSAGE", "<b>ʜᴇʟʟᴏ ᴅᴜᴅᴇ 🥂 ɪ ᴀᴍ ᴀ ʜᴇᴀʀᴛ ғʟɪᴍ ᴘʀᴏᴠɪᴅᴇʀ ʙᴏᴛ, ɪ ʜᴀᴠᴇ ᴍᴀɴʏ ɪɴᴛᴇʀᴇsᴛɪɴɢ ғᴇᴀᴛᴜʀᴇs. ɪғ ʏᴏᴜ ɪɴᴛʀᴇsᴛᴇᴅ ᴛᴏ ʙᴜʏ ᴍᴇ, ᴄᴏɴᴛᴀᴄᴛ <a href=https://t.me/NovaXTG>ɴᴏᴠᴀxᴛɢ</a> 👨🏼‍💻</b>")
 #set your Custom Caption here, Keep None for Disable Custom Caption
 CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", "<b>ɴᴀᴍᴇ</b> : {filename}\n\n ɴᴏᴛᴇ: ᴀꜰᴛᴇʀ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ ᴛʜᴇ ꜰɪʟᴇꜱ, ꜱᴀᴠᴇ ᴛʜᴇ ꜰɪʟᴇ ᴛᴏ ɢᴀʟʟᴇʀʏ ᴀɴᴅ ᴄʟɪᴄᴋ ᴛʜᴇ ᴅᴇʟᴇᴛᴇ ʙᴜᴛᴛᴏɴ, ᴅᴏɴ'ᴛ ᴄʟɪᴄᴋ ʙᴇꜰᴏʀᴇ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ ᴛʜᴇ ꜰɪʟᴇꜱ, ɪꜰ ᴜ ᴅᴏɴ'ᴛ ᴡᴀɴᴛ ᴛʜɪꜱ ꜰɪʟᴇ ᴘʟᴇᴀꜱᴇ ᴄʟɪᴄᴋ ᴅᴇʟᴇᴛᴇ ʙᴜᴛᴛᴏɴ")
 #set True if you want to prevent users from forwarding files from bot
